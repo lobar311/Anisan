@@ -68,6 +68,7 @@ const Header: React.FC<HeaderProps> = ({
         date: values.date,
         genre: values.genre,
         img: values.img,
+        description: values.description,
       })
     );
     form.resetFields();
@@ -77,7 +78,7 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <div css={headerStyle}>
-      <h1>{activeMenuKey === "1" ? "Markalar" : "Shartnomalar"}</h1>
+      <h1>{activeMenuKey === "1" ? "Ishchi" : "Kampaniya"}</h1>
       <div>
         {activeMenuKey === "1" && (
           <Button
@@ -85,7 +86,7 @@ const Header: React.FC<HeaderProps> = ({
             icon={<PlusOutlined />}
             onClick={showBrandModal}
           >
-            Janr qo'shish
+            ishchi qoshish
           </Button>
         )}
         {activeMenuKey === "2" && (
@@ -94,7 +95,7 @@ const Header: React.FC<HeaderProps> = ({
             icon={<PlusOutlined />}
             onClick={showContractModal}
           >
-            Kino qo'shish
+            Kampaniya qoshish
           </Button>
         )}
         <Input.Search
@@ -131,7 +132,7 @@ const Header: React.FC<HeaderProps> = ({
             </Form.Item>
             <Form.Item>
               <Button type="primary" htmlType="submit">
-                Add Brand
+                Add
               </Button>
             </Form.Item>
           </Form>

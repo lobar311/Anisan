@@ -20,7 +20,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect, selectedKey }) => {
           selectedKey === "1" ? "bg-blue-500 text-white" : "text-black"
         }`}
       >
-        Genres
+        Ishlar
       </Menu.Item>
       <Menu.Item
         key="2"
@@ -28,7 +28,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelect, selectedKey }) => {
           selectedKey === "2" ? "bg-blue-500 text-white" : "text-black"
         }`}
       >
-        Movies
+        Kampaniyalar
       </Menu.Item>
     </Menu>
   );

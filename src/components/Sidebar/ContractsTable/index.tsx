@@ -7,7 +7,7 @@ import { RootState } from "../store";
 import { deleteContract, editContract } from "../store/slices/contractsSlice";
 import { EditOutlined, DeleteOutlined, MoreOutlined } from "@ant-design/icons";
 
-interface Genre {
+interface Company {
   id: number;
   name: string;
   image: string;
@@ -15,138 +15,27 @@ interface Genre {
   genre: string;
 }
 
-interface Contract {
+interface Job {
   id: number;
   name: string;
   date: string;
   genre: string;
   img: string;
+  description: string;
 }
 
 interface ContractsPageProps {
   searchText: string;
 }
 
-const genres: Genre[] = [
-  {
-    id: 1,
-    name: "Fantastika",
-    image: "https://asilmedia.org/rasmlar/images/2023/05/21/T6UJUJT6YUJ.jpg",
-    description:
-      "Fantastika janri o'ziga xos va ixtiroiy elementlarni o'z ichiga olgan hikoyalar va filmlarni o'z ichiga oladi.",
-    genre: "Fantastika",
-  },
-  {
-    id: 2,
-    name: "Urush",
-    image:
-      "https://avatars.mds.yandex.net/get-kinopoisk-image/1600647/76ea94a0-c0aa-4199-93ca-fe81b5534965/600x900",
-    description:
-      "Urush janri tarixiy voqealar va urushlarning hikoyalarini tasvirlaydi, janglar va strategiyalarni o'z ichiga oladi.",
-    genre: "Urush",
-  },
-  {
-    id: 3,
-    name: "Jangari",
-    image:
-      "https://www.afisha.uz/uploads/media/2024/06/3016498ef7d512e319ad78e028b49edc_s.jpg",
-    description:
-      "Jangari janr aksiyalar va janglar bilan to'ldirilgan, tezkor harakat va qiziqarli sarguzashtlarni o'z ichiga oladi.",
-    genre: "Jangari",
-  },
-  {
-    id: 4,
-    name: "Romantik",
-    image: "https://example.com/romantic.jpg",
-    description:
-      "Romantik janr sevgi va munosabatlarga bag'ishlangan hikoyalarni o'z ichiga oladi.",
-    genre: "Romantik",
-  },
-  {
-    id: 5,
-    name: "Triller",
-    image: "https://example.com/thriller.jpg",
-    description:
-      "Triller janri yuqori darajadagi hayajon va tashvishlarni tasvirlaydi.",
-    genre: "Triller",
-  },
-  {
-    id: 6,
-    name: "Drama",
-    image: "https://example.com/drama.jpg",
-    description:
-      "Drama janri insoniy tajribalar va emosiyalarni chuqurroq o'rganadi.",
-    genre: "Drama",
-  },
-  {
-    id: 7,
-    name: "Komediya",
-    image: "https://example.com/comedy.jpg",
-    description:
-      "Komediya janri kulgili va o'yin-kulgi elementlarini o'z ichiga oladi.",
-    genre: "Komediya",
-  },
-  {
-    id: 8,
-    name: "Sarguzasht",
-    image: "https://example.com/adventure.jpg",
-    description:
-      "Sarguzasht janri qiziqarli va hayajonli sarguzashtlarni o'z ichiga oladi.",
-    genre: "Sarguzasht",
-  },
-  {
-    id: 9,
-    name: "Horror",
-    image: "https://example.com/horror.jpg",
-    description: "Horror janri qo'rquv va vahima yaratishga qaratilgan.",
-    genre: "Horror",
-  },
-  {
-    id: 10,
-    name: "Detektiv",
-    image: "https://example.com/detective.jpg",
-    description:
-      "Detektiv janri sirli voqealarni va ularni hal qilish jarayonini tasvirlaydi.",
-    genre: "Detektiv",
-  },
-  {
-    id: 11,
-    name: "Biografiya",
-    image: "https://example.com/biography.jpg",
-    description:
-      "Biografiya janri real insonlar hayoti va tajribalari haqida hikoyalar o'z ichiga oladi.",
-    genre: "Biografiya",
-  },
-  {
-    id: 12,
-    name: "Muzikal",
-    image: "https://example.com/musical.jpg",
-    description: "Muzikal janri musiqiy va raqsli sahnalarni o'z ichiga oladi.",
-    genre: "Muzikal",
-  },
-  {
-    id: 13,
-    name: "Dokumental",
-    image: "https://example.com/documentary.jpg",
-    description: "Dokumental janri real voqealarni va faktlarni tasvirlaydi.",
-    genre: "Dokumental",
-  },
-  {
-    id: 14,
-    name: "Felsefi",
-    image: "https://example.com/philosophical.jpg",
-    description:
-      "Felsefi janri insoniy tafakkur va falsafiy masalalarni o'rganadi.",
-    genre: "Felsefi",
-  },
-  {
-    id: 15,
-    name: "Tadqiqot",
-    image: "https://example.com/research.jpg",
-    description:
-      "Tadqiqot janri ilmiy va tadqiqot asosida yaratilgan hikoyalarni o'z ichiga oladi.",
-    genre: "Tadqiqot",
-  },
+const genres: Company[] = [
+  // {
+  //   id: 1,
+  //   name: "yangi ishchi",
+  //   image: "https://xabar.uz/static/crop/2/6/920__95_2675552507.jpg",
+  //   description: "ichiga oladi.",
+  //   genre: "kardiolg",
+  // },
 ];
 
 const gridStyle = css`
@@ -171,17 +60,14 @@ const cardStyle = css`
   }
   .ant-card-cover {
     overflow: hidden;
-    height: 350px;
+    height: 400px;
     img {
       height: 100%;
       object-fit: cover;
       width: 100%;
-      transition: transform 0.3s ease;
+    
     }
-    &:hover img {
-      transform: scale(1.1);
-    }
-  }
+   
 `;
 
 const selectStyle = css`
@@ -194,7 +80,7 @@ const ContractsPage: React.FC<ContractsPageProps> = ({ searchText }) => {
     (state: RootState) => state.contracts.contracts
   );
 
-  const [editingContract, setEditingContract] = useState<Contract | null>(null);
+  const [editingContract, setEditingContract] = useState<Job | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
   const [selectedGenre, setSelectedGenre] = useState<string | undefined>(
@@ -205,7 +91,7 @@ const ContractsPage: React.FC<ContractsPageProps> = ({ searchText }) => {
     contract.name.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  const handleEdit = (record: Contract) => {
+  const handleEdit = (record: Job) => {
     setEditingContract(record);
     setIsModalVisible(true);
     form.setFieldsValue(record);
@@ -231,14 +117,14 @@ const ContractsPage: React.FC<ContractsPageProps> = ({ searchText }) => {
     setSelectedGenre(value);
   };
 
-  const menu = (contract: Contract) => (
+  const menu = (contract: Job) => (
     <Menu>
       <Menu.Item
         key="edit"
         icon={<EditOutlined />}
         onClick={() => handleEdit(contract)}
       >
-        Edit
+        Edet
       </Menu.Item>
       <Menu.Item
         key="delete"
@@ -252,20 +138,6 @@ const ContractsPage: React.FC<ContractsPageProps> = ({ searchText }) => {
 
   return (
     <div>
-      <Select
-        css={selectStyle}
-        placeholder="Select Genre"
-        onChange={handleGenreChange}
-        value={selectedGenre}
-      >
-        <Select.Option value={undefined}>Barchasi</Select.Option>{" "}
-        {genres.map((genre) => (
-          <Select.Option key={genre.id} value={genre.genre}>
-            {genre.name}
-          </Select.Option>
-        ))}
-      </Select>
-
       <div css={gridStyle}>
         {filteredContracts
           .filter(
@@ -320,16 +192,19 @@ const ContractsPage: React.FC<ContractsPageProps> = ({ searchText }) => {
             name="genre"
             label="Genre"
             rules={[{ required: true, message: "Please select the genre!" }]}
-          >
-            <Select>
-              <Select.Option value={undefined}>Barchasi</Select.Option>
-              {genres.map((genre) => (
-                <Select.Option key={genre.id} value={genre.genre}>
-                  {genre.name}
-                </Select.Option>
-              ))}
-            </Select>
-          </Form.Item>
+          ></Form.Item>
+
+          <Form.Item
+            name="description"
+            label="Description"
+            rules={[
+              {
+                required: true,
+                message: "Please input the customer description!",
+              },
+            ]}
+          ></Form.Item>
+
           <Form.Item
             name="img"
             label="Image URL"

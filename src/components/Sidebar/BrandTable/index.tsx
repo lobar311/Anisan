@@ -6,11 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { deleteBrand, editBrand } from "../store/slices/brandsSlice";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import FormItem from "antd/es/form/FormItem";
 
 interface Brand {
   id: number;
   name: string;
   image: string;
+  description: string;
 }
 
 interface BrandTableProps {
@@ -24,7 +26,7 @@ const tableStyle = css`
   padding: 20px;
 
   .ant-table-thead > tr > th {
-    background-color: #e6f7ff;
+    background-color: blue;
     color: #000;
   }
 
@@ -47,7 +49,11 @@ const BrandTable: React.FC<BrandTableProps> = ({ searchText }) => {
   const handleEdit = (record: Brand) => {
     setEditingBrand(record);
     setIsModalVisible(true);
-    form.setFieldsValue({ name: record.name, image: record.image });
+    form.setFieldsValue({
+      name: record.name,
+      image: record.image,
+      description: record.description,
+    });
   };
 
   const handleDelete = (id: number) => {
@@ -79,9 +85,14 @@ const BrandTable: React.FC<BrandTableProps> = ({ searchText }) => {
       ),
     },
     {
-      title: "Janri",
+      description: "tarif",
+    },
+    {
+      technologies: "lololo",
+    },
+    {
+      title: "Ishlar",
       dataIndex: "name",
-      sorter: (a: Brand, b: Brand) => a.name.localeCompare(b.name),
     },
     {
       title: "Edit / Delete",
